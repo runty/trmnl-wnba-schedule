@@ -37,7 +37,22 @@ def fetch_json(url):
         return json.loads(resp.read())
 
 
-def parse_game(event, team_id):
+def fetch_all_records():
+    """Fetch current W-L records for all WNBA teams."""
+    records = {}
+    for slug, team_id in TEAMS.items():
+        try:
+            data = fetch_json(f"{ESPN_BASE}/teams/{team_id}")
+            team = data.get("team", {})
+            record_items = team.get("record", {}).get("items", [])
+            total = next((r for r in record_items if r.get("type") == "total"), {})
+            records[str(team_id)] = total.get("summary", "0-0")
+        except Exception:
+            records[str(team_id)] = "0-0"
+    return records
+
+
+def parse_game(event, team_id, team_records):
     """Parse a single ESPN event into a clean game object."""
     comp = event.get("competitions", [{}])[0]
     competitors = comp.get("competitors", [])
@@ -64,6 +79,9 @@ def parse_game(event, team_id):
         opp_logo = WNBA_LOGO
         opp_abbr = opp_team.get("shortDisplayName", opp_team.get("displayName", "TBD"))
 
+    opp_id = str(opponent.get("id", ""))
+    opp_record = team_records.get(opp_id, "")
+
     try:
         dt = datetime.fromisoformat(date_iso.replace("Z", "+00:00"))
     except (ValueError, AttributeError):
@@ -81,6 +99,7 @@ def parse_game(event, team_id):
         "opponent": opp_team.get("displayName", "Unknown"),
         "opp_abbr": opp_abbr,
         "opp_logo": opp_logo,
+        "opp_record": opp_record,
         "home_away": home_away,
         "is_home": home_away == "home",
         "location": "Home" if home_away == "home" else "Away",
@@ -131,7 +150,7 @@ def build_calendar(games, year, month):
     }
 
 
-def process_team(slug, team_id):
+def process_team(slug, team_id, team_records):
     """Fetch and transform schedule for a single team."""
     url = f"{ESPN_BASE}/teams/{team_id}/schedule"
     data = fetch_json(url)
@@ -140,7 +159,7 @@ def process_team(slug, team_id):
     events = data.get("events", [])
     now = datetime.now(timezone.utc)
 
-    games = [parse_game(e, team_id) for e in events]
+    games = [parse_game(e, team_id, team_records) for e in events]
     upcoming = [g for g in games if not g["completed"]]
     recent = [g for g in games if g["completed"]]
 
@@ -183,10 +202,14 @@ def main():
     out_dir = os.path.join(os.path.dirname(__file__), "..", "api", "teams")
     os.makedirs(out_dir, exist_ok=True)
 
+    print("Fetching team records...")
+    team_records = fetch_all_records()
+    print(f"Got records for {len(team_records)} teams\n")
+
     errors = []
     for slug, team_id in TEAMS.items():
         try:
-            result = process_team(slug, team_id)
+            result = process_team(slug, team_id, team_records)
             path = os.path.join(out_dir, f"{slug}.json")
             with open(path, "w") as f:
                 json.dump(result, f, separators=(",", ":"))

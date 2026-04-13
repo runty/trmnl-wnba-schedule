@@ -3,8 +3,13 @@
   *, .title, .value, .label, .description, .instance, .index, span, td, th, div {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
   }
+  .cal-grid { grid-template-columns: repeat(7, 1fr); }
+  .cal-header { border-bottom: 2px solid black; }
   .cal-cell { min-height: 38px; overflow: hidden; }
   .cal-day--empty { opacity: 0; }
+  .cal-day--upcoming { background: black; color: white; }
+  .cal-day--win { background: black; color: white; }
+  .cal-day--loss { background: #cc0000; color: white; }
   .cal-detail { line-height: 1.1; white-space: nowrap; overflow: hidden; }
   .border-b-2 { border-bottom: 2px solid black; }
   .border-b-1 { border-bottom: 1px solid #ccc; }

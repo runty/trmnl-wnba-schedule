@@ -14,32 +14,32 @@
             <span class="record-pill px--2 py--1">{{ team.record }}</span>
           </span>
         </div>
-        <div class="grid grid--cols-7 gap--[2px] text--center">
-          <div class="label label--small p--1 border-b-2 text--center">S</div>
-          <div class="label label--small p--1 border-b-2 text--center">M</div>
-          <div class="label label--small p--1 border-b-2 text--center">T</div>
-          <div class="label label--small p--1 border-b-2 text--center">W</div>
-          <div class="label label--small p--1 border-b-2 text--center">T</div>
-          <div class="label label--small p--1 border-b-2 text--center">F</div>
-          <div class="label label--small p--1 border-b-2 text--center">S</div>
+        <div class="cal-grid grid gap--[2px] text--center">
+          <div class="cal-header label label--small p--1 text--center bold">S</div>
+          <div class="cal-header label label--small p--1 text--center bold">M</div>
+          <div class="cal-header label label--small p--1 text--center bold">T</div>
+          <div class="cal-header label label--small p--1 text--center bold">W</div>
+          <div class="cal-header label label--small p--1 text--center bold">T</div>
+          <div class="cal-header label label--small p--1 text--center bold">F</div>
+          <div class="cal-header label label--small p--1 text--center bold">S</div>
           {% for week in cal.weeks %}
             {% for d in week %}
               {% if d.day == 0 %}
                 <div class="cal-cell cal-day--empty">&nbsp;</div>
               {% elsif d.has_game and d.completed and d.result == "W" %}
-                <div class="cal-cell bg--black text--white p--1 text--center">
+                <div class="cal-cell cal-day--win p--1 text--center bold">
                   {{ d.day }}
-                  <span class="cal-detail label label--small">{{ d.opp_abbr }} {{ d.score_display }}</span>
+                  <span class="cal-detail description">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game and d.completed %}
-                <div class="cal-cell bg--error text--white p--1 text--center">
+                <div class="cal-cell cal-day--loss p--1 text--center">
                   {{ d.day }}
-                  <span class="cal-detail label label--small">{{ d.opp_abbr }} {{ d.score_display }}</span>
+                  <span class="cal-detail description">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game %}
-                <div class="cal-cell bg--black text--white p--1 text--center">
+                <div class="cal-cell cal-day--upcoming p--1 text--center bold">
                   {{ d.day }}
-                  <span class="cal-detail label label--small">{{ d.opp_abbr }}</span>
+                  <span class="cal-detail description">{{ d.opp_abbr }}</span>
                 </div>
               {% else %}
                 <div class="cal-cell p--1 text--center">
@@ -85,7 +85,7 @@
               {% if next_game.preview != blank %}
               <tr>
                 <td colspan="4" class="text--right pb--1">
-                  <span class="label label--small">{{ next_game.preview }}</span>
+                  <span class="description">{{ next_game.preview }}</span>
                 </td>
               </tr>
               {% endif %}
@@ -147,7 +147,7 @@
 
   {% if injuries.size > 0 %}
     <div class="w--full pt--1 border-t-1">
-      <span class="label label--small">🏥 {% for inj in injuries %}{{ inj.name }} ({{ inj.position }}, {{ inj.status }}){% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+      <span class="description">🏥 {% for inj in injuries %}{{ inj.name }} ({{ inj.position }}, {{ inj.status }}){% unless forloop.last %} · {% endunless %}{% endfor %}</span>
     </div>
   {% endif %}
 </div>

@@ -40,21 +40,18 @@
 
       <!-- Upcoming Games List -->
       <div style="flex: 1; padding-left: 12px; border-left: 2px solid black;">
-        <span class="title title--small" style="margin-bottom: 4px; display: block;">Upcoming</span>
-        {% for game in upcoming limit: 8 %}
+        <span class="title title--small" style="margin-bottom: 6px; display: block;">Upcoming</span>
+        {% for game in upcoming limit: 5 %}
           {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
           {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
           <div class="game-row">
-            <span class="label label--small game-date">{{ game.date_short }}</span>
+            <span class="label game-date">{{ game.date_short }}</span>
             <span class="game-team">
-              <img class="game-logo--sm" src="{{ game.opp_logo }}" width="14" height="14" />
-              <span class="label label--small" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
+              <img class="game-logo--lg" src="{{ game.opp_logo }}" width="28" height="28" />
+              <span class="label" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
             </span>
           </div>
         {% endfor %}
-        {% if games_remaining > 8 %}
-          <span class="description" style="margin-top: 4px; display: block;">+ {{ games_remaining | minus: 8 }} more</span>
-        {% endif %}
       </div>
     </div>
 
@@ -65,13 +62,13 @@
         <span class="title">{{ team.name }} Schedule</span>
         <span class="record-pill label">{{ team.record }}</span>
       </div>
-      {% for game in upcoming limit: 10 %}
+      {% for game in upcoming limit: 6 %}
         {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
         {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
         <div class="game-row">
           <span class="label game-date">{{ game.date_short }}</span>
           <span class="game-team">
-            <img class="game-logo" src="{{ game.opp_logo }}" width="18" height="18" />
+            <img src="{{ game.opp_logo }}" width="28" height="28" style="object-fit: contain;" />
             <span class="label" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
           </span>
         </div>

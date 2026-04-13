@@ -243,7 +243,7 @@ def process_team(slug, team_id, team_records):
                 results = [e.get("gameResult", "") for e in team_l5.get("events", [])]
                 if results:
                     form = "".join(
-                        "\u2705" if r and r[0] == "W" else
+                        "\U0001F7E2" if r and r[0] == "W" else
                         "\u274C" if r and r[0] == "L" else ""
                         for r in results[:5]
                     )

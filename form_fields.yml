@@ -4,9 +4,14 @@
 - keyname: author_info
   field_type: author_bio
   name: About
+  category:
+    - sports
+    - calendar
   description: >
     WNBA schedule data is sourced from ESPN and updated twice daily.
     Data may be delayed or unavailable during the off-season.
+    <br><br>
+    Built by <a href="https://github.com/runty" target="_blank">runty</a>
 
 - keyname: team
   field_type: select

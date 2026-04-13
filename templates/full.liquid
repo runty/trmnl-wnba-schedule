@@ -41,17 +41,27 @@
       <!-- Upcoming Games List -->
       <div style="flex: 1; padding-left: 12px; border-left: 2px solid black;">
         <span class="title title--small" style="margin-bottom: 6px; display: block;">Upcoming</span>
-        {% for game in upcoming limit: 5 %}
-          {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
-          {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
-          <div class="game-row">
-            <span class="label game-date">{{ game.date_short }}</span>
-            <span class="game-team">
-              <img class="game-logo--lg" src="{{ game.opp_logo }}" width="28" height="28" />
-              <span class="label" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
-            </span>
-          </div>
-        {% endfor %}
+        <table style="width: 100%; border-collapse: collapse;">
+          {% for game in upcoming limit: 5 %}
+            {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
+            {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
+            {% assign parts = game.date_short | split: " - " %}
+            <tr style="border-bottom: 1px solid #ccc;">
+              <td style="padding: 5px 6px 5px 0; white-space: nowrap; vertical-align: middle; width: 36px;">
+                <span class="label">{{ parts[0] }}</span>
+              </td>
+              <td style="padding: 5px 4px; vertical-align: middle; width: 28px;">
+                <img src="{{ game.opp_logo }}" width="28" height="28" style="display: block; object-fit: contain;" />
+              </td>
+              <td style="padding: 5px 4px; vertical-align: middle;">
+                <span class="label">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
+              </td>
+              <td style="padding: 5px 0 5px 4px; white-space: nowrap; vertical-align: middle; text-align: right;">
+                <span class="label label--small">{{ parts[1] }}</span>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
 
@@ -62,17 +72,27 @@
         <span class="title">{{ team.name }} Schedule</span>
         <span class="record-pill label">{{ team.record }}</span>
       </div>
-      {% for game in upcoming limit: 6 %}
-        {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
-        {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
-        <div class="game-row">
-          <span class="label game-date">{{ game.date_short }}</span>
-          <span class="game-team">
-            <img src="{{ game.opp_logo }}" width="28" height="28" style="object-fit: contain;" />
-            <span class="label" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
-          </span>
-        </div>
-      {% endfor %}
+      <table style="width: 100%; border-collapse: collapse;">
+        {% for game in upcoming limit: 6 %}
+          {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
+          {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
+          {% assign parts = game.date_short | split: " - " %}
+          <tr style="border-bottom: 1px solid #ccc;">
+            <td style="padding: 5px 6px 5px 0; white-space: nowrap; vertical-align: middle; width: 36px;">
+              <span class="label">{{ parts[0] }}</span>
+            </td>
+            <td style="padding: 5px 4px; vertical-align: middle; width: 28px;">
+              <img src="{{ game.opp_logo }}" width="28" height="28" style="display: block; object-fit: contain;" />
+            </td>
+            <td style="padding: 5px 4px; vertical-align: middle;">
+              <span class="label">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
+            </td>
+            <td style="padding: 5px 0 5px 4px; white-space: nowrap; vertical-align: middle; text-align: right;">
+              <span class="label label--small">{{ parts[1] }}</span>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
   {% endif %}
 </div>

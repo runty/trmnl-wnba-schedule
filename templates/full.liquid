@@ -51,22 +51,39 @@
       <!-- Upcoming Games List -->
       <div style="flex: 1; padding-left: 12px; border-left: 2px solid black;">
         <span class="title title--small" style="margin-bottom: 6px; display: block;">Upcoming</span>
+
+        {% if next_game %}
+          {% assign ng_parts = next_game.date_short | split: " - " %}
+          <div style="margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid black;">
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+              <img src="{{ next_game.opp_logo }}" width="28" height="28" style="object-fit: contain;" />
+              <span class="label" style="font-weight: bold;">{% if next_game.is_home %}vs{% else %}@{% endif %} {{ next_game.opponent }}{% if next_game.opp_record != blank %} ({{ next_game.opp_record }}){% endif %}</span>
+            </div>
+            <span class="label label--small">{{ ng_parts[0] }} at {{ ng_parts[1] }} · {{ next_game.venue }}, {{ next_game.city }}</span>
+            {% if next_game.preview != blank %}
+              <span class="description" style="display: block; margin-top: 3px;">{{ next_game.preview }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
         <table style="width: 100%; border-collapse: collapse;">
-          {% for game in upcoming limit: 5 %}
+          {% assign skip_first = true %}
+          {% for game in upcoming limit: 6 %}
             {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
             {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
+            {% if skip_first %}{% assign skip_first = false %}{% continue %}{% endif %}
             {% assign parts = game.date_short | split: " - " %}
             <tr style="border-bottom: 1px solid #ccc;">
-              <td style="padding: 5px 6px 5px 0; white-space: nowrap; vertical-align: middle; width: 36px;">
-                <span class="label">{{ parts[0] }}</span>
+              <td style="padding: 4px 6px 4px 0; white-space: nowrap; vertical-align: middle; width: 36px;">
+                <span class="label label--small">{{ parts[0] }}</span>
               </td>
-              <td style="padding: 5px 4px; vertical-align: middle; width: 28px;">
-                <img src="{{ game.opp_logo }}" width="28" height="28" style="display: block; object-fit: contain;" />
+              <td style="padding: 4px 4px; vertical-align: middle; width: 22px;">
+                <img src="{{ game.opp_logo }}" width="22" height="22" style="display: block; object-fit: contain;" />
               </td>
-              <td style="padding: 5px 4px; vertical-align: middle;">
-                <span class="label">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
+              <td style="padding: 4px 4px; vertical-align: middle;">
+                <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
               </td>
-              <td style="padding: 5px 0 5px 4px; white-space: nowrap; vertical-align: middle; text-align: right;">
+              <td style="padding: 4px 0 4px 4px; white-space: nowrap; vertical-align: middle; text-align: right;">
                 <span class="label label--small">{{ parts[1] }}</span>
               </td>
             </tr>

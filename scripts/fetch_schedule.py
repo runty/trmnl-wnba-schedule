@@ -193,6 +193,42 @@ def process_team(slug, team_id, team_records):
 
     next_game = upcoming[0] if upcoming else None
 
+    # Fetch game preview for next game
+    preview = ""
+    if next_game:
+        try:
+            game_id = next_game.get("date_iso", "").replace("-", "").replace(":", "").replace("Z", "")
+            # Use the event ID from the original events data
+            for e in events:
+                if e.get("date") == next_game["date_iso"]:
+                    game_id = e["id"]
+                    break
+            summary_data = fetch_json(f"{ESPN_BASE}/summary?event={game_id}")
+
+            parts = []
+
+            # Season series
+            series = summary_data.get("seasonseries", [])
+            if series:
+                s = series[0]
+                parts.append(s.get("summary", ""))
+
+            # Last 5 form for both teams
+            l5 = summary_data.get("lastFiveGames", [])
+            for team_l5 in l5:
+                t_name = team_l5.get("team", {}).get("abbreviation", "")
+                results = [e.get("gameResult", "") for e in team_l5.get("events", [])]
+                if results:
+                    form = "".join(r[0] if r else "" for r in results[:5])
+                    parts.append(f"{t_name} last 5: {form}")
+
+            preview = ". ".join(p for p in parts if p)
+        except Exception:
+            preview = ""
+
+    if next_game:
+        next_game["preview"] = preview
+
     return {
         "team": {
             "name": team_info.get("displayName", ""),

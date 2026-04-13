@@ -8,7 +8,7 @@
       {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
       {% if shown >= 6 %}{% break %}{% endif %}
       {% assign parts = game.date_short | split: " - " %}
-      {% if forloop.first %}
+      {% if shown == 0 %}
         <tr>
           <td class="td-date-sm py--1 pr--1">
             <span class="label label--small font-bold">{{ parts[0] }}</span>

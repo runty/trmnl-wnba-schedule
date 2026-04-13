@@ -43,9 +43,3 @@
     - Away Only
   default: All Games
   optional: true
-
-- keyname: time_zone
-  field_type: time_zone
-  name: Time Zone
-  description: "Your local time zone for game times"
-  optional: true

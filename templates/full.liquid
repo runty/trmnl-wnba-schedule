@@ -56,11 +56,13 @@
         <span class="title title--small font-bold mb--2 d-block">Upcoming</span>
 
         <table class="tbl">
-          {% for game in upcoming limit: 5 %}
+          {% assign shown = 0 %}
+          {% for game in upcoming %}
             {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
             {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
+            {% if shown >= 5 %}{% break %}{% endif %}
             {% assign parts = game.date_short | split: " - " %}
-            {% if forloop.first %}
+            {% if shown == 0 %}
               <tr>
                 <td class="td-date py--1 pr--2">
                   <span class="label font-bold">{{ parts[0] }}</span>
@@ -106,6 +108,7 @@
                 </td>
               </tr>
             {% endif %}
+            {% assign shown = shown | plus: 1 %}
           {% endfor %}
         </table>
       </div>

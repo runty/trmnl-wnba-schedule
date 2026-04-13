@@ -52,6 +52,14 @@ def fetch_all_records():
     return records
 
 
+def _compute_result(team_score, opp_score):
+    try:
+        t, o = int(team_score), int(opp_score)
+        return "W" if t > o else "L" if t < o else ""
+    except (ValueError, TypeError):
+        return ""
+
+
 def parse_game(event, team_id, team_records):
     """Parse a single ESPN event into a clean game object."""
     comp = event.get("competitions", [{}])[0]
@@ -130,8 +138,7 @@ def parse_game(event, team_id, team_records):
         "season_type": season_type.get("name", ""),
         "team_score": team_score,
         "opp_score": opp_score,
-        "result": "W" if (team_score and opp_score and int(team_score) > int(opp_score)) else
-                  "L" if (team_score and opp_score and int(team_score) < int(opp_score)) else "",
+        "result": _compute_result(team_score, opp_score),
         "score_display": f"{team_score}-{opp_score}" if (team_score and opp_score) else "",
     }
 
@@ -280,7 +287,6 @@ def process_team(slug, team_id, team_records):
             "color": team_info.get("color", "000000"),
         },
         "upcoming": upcoming[:20],
-        "recent": list(reversed(recent[-5:])),
         "next_game": next_game,
         "injuries": injuries,
         "calendars": calendars,
@@ -306,7 +312,7 @@ def main():
             with open(path, "w") as f:
                 json.dump(result, f, separators=(",", ":"))
             print(f"OK  {slug} ({result['team']['name']}) - {result['games_remaining']} upcoming games")
-        except (URLError, KeyError, IndexError) as e:
+        except Exception as e:
             errors.append(f"{slug}: {e}")
             print(f"ERR {slug}: {e}", file=sys.stderr)
 

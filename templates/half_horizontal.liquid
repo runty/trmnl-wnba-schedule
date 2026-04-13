@@ -26,10 +26,10 @@
     </table>
   </div>
 
-  <div class="flex flex--col flex--center-x gap--small pl--3 no-shrink w--[200px]">
+  <div class="flex flex--col flex--center-x gap--small pl--3 no-shrink w--48">
     <img src="{{ team.logo }}" width="80" height="80" class="img-contain" />
     {% if injuries.size > 0 %}
-      <span class="description font-12 text--center w--max-[180px] wrap">🏥 {% for inj in injuries %}{{ inj.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
+      <span class="description font-12 text--center w--44 wrap">🏥 {% for inj in injuries %}{{ inj.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
     {% endif %}
   </div>
 </div>

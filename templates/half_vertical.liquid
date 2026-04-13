@@ -25,13 +25,13 @@
         </tr>
         <tr>
           <td colspan="4" class="text--right pb--1">
-            <span class="description">{{ game.venue }}, {{ game.city }}</span>
+            <span class="description text-sm">{{ game.venue }}, {{ game.city }}</span>
           </td>
         </tr>
         {% if next_game.preview != blank %}
         <tr>
           <td colspan="4" class="text--right pb--1">
-            <span class="description">{{ next_game.preview }}</span>
+            <span class="description text-sm">{{ next_game.preview }}</span>
           </td>
         </tr>
         {% endif %}
@@ -60,7 +60,7 @@
 
   {% if injuries.size > 0 %}
     <div class="w--full pt--1 border-t-1">
-      <span class="description">🏥 {% for inj in injuries %}{{ inj.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
+      <span class="description text-sm">🏥 {% for inj in injuries %}{{ inj.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
     </div>
   {% endif %}
 </div>

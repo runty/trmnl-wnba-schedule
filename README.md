@@ -2,33 +2,35 @@
 
 A TRMNL recipe that displays a visual calendar and schedule of upcoming games for a selected WNBA team.
 
-![WNBA](https://a.espncdn.com/i/teamlogos/leagues/500/wnba.png)
+![WNBA](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png)
 
 ## Features
 
-- **Monthly calendar grid** with game days highlighted — wins (black), losses (red), upcoming (black with opponent)
-- **Upcoming games list** with team logos, aligned columns, and opponent records
-- **Next game detail** with bold formatting, venue/city, and game preview (season series + last 5 form with ✅❌ emojis)
-- **Injury report** for your team shown at the bottom
-- **Filter** by home games, away games, or all
-- **All 15 WNBA teams** supported
+- **Monthly calendar grid** with game days highlighted — wins (black), losses (red), upcoming (black with opponent abbreviation)
+- **Upcoming games list** with team logos, aligned table columns, and opponent W-L records
+- **Next game detail** — bold first game with venue/city and game preview (season series + last 5 form with 🟢❌ emojis)
+- **Injury report** for your team displayed at the bottom of the screen
+- **Filter** by home games, away games, or all games
+- **All 15 WNBA teams** supported (2026 season including expansion teams)
 - **All 4 TRMNL layouts**: full, half horizontal, half vertical, quadrant
+- **Sans-serif font** (Inter via Google Fonts)
+- **Zero inline styles** — uses TRMNL Framework classes + minimal custom CSS
 - Team logos from ESPN CDN (500x500 PNG, full color, transparent background)
-- Data updated **twice daily** via GitHub Actions
+- Data updated **twice daily** via GitHub Actions (8am/8pm UTC)
 
 ## Layouts
 
 ### Full (800x480)
-Calendar grid on the left with team logo and record. Upcoming games on the right with next game detail (venue, preview), followed by compact game list. Injuries at the bottom spanning full width.
+Left side: monthly calendar grid with team logo and W-L record. Game days show opponent abbreviation (upcoming) or opponent + score (completed — black for wins, red for losses). Right side: next game featured with venue, city, and preview line, followed by compact upcoming games list. Injury report spans full width at the bottom.
 
 ### Half Horizontal (800x240)
-Aligned game list on the left, large team logo on the right with injuries below.
+Aligned game table on the left with dates, team logos, short names, records, and times. Large team logo on the right with injury list below. Team name and record in the title bar.
 
 ### Half Vertical (400x480)
-Team logo at top, next game detail with venue and preview, compact game list, injuries at the bottom.
+Team logo centered at top. Next game featured with venue and preview. Compact upcoming games table below. Injury report at the bottom. Team name and record in the title bar.
 
 ### Quadrant (400x240)
-Compact aligned table of 4 upcoming games with team logos and records.
+Compact aligned table of 4 upcoming games with 24px team logos, opponent abbreviations, records, and times. Team name and record in the title bar.
 
 ## Setup
 
@@ -64,45 +66,53 @@ Compact aligned table of 4 upcoming games with team logos and records.
 ```
 trmnl-wnba-schedule/
 ├── .github/workflows/
-│   ├── pages.yml              # Deploy to GitHub Pages
+│   ├── pages.yml              # Deploy to GitHub Pages (with success check)
 │   └── update-data.yml        # Fetch schedules twice daily (8am/8pm UTC)
 ├── api/teams/                 # Generated JSON (one file per team)
 ├── scripts/
-│   └── fetch_schedule.py      # ESPN API fetcher + calendar builder
+│   └── fetch_schedule.py      # ESPN API fetcher + calendar builder + preview
 ├── templates/
-│   ├── shared.liquid          # Common styles (sans-serif font, calendar, layout)
+│   ├── shared.liquid          # Google Fonts, custom CSS classes, filter logic
 │   ├── full.liquid            # Full screen: calendar + upcoming + injuries
-│   ├── half_horizontal.liquid # Wide split: game list + logo + injuries
-│   ├── half_vertical.liquid   # Tall split: logo + game list + injuries
+│   ├── half_horizontal.liquid # Wide split: game table + logo + injuries
+│   ├── half_vertical.liquid   # Tall split: logo + featured game + list + injuries
 │   └── quadrant.liquid        # Quarter: compact 4-game table
-├── form_fields.yml            # Team selector, game filter, timezone
+├── form_fields.yml            # Team selector and game filter
 ├── settings.yml               # Plugin metadata
 └── README.md
 ```
 
-## WNBA Teams
+## WNBA Teams (2026)
 
 Atlanta Dream, Chicago Sky, Connecticut Sun, Dallas Wings, Golden State Valkyries, Indiana Fever, Las Vegas Aces, Los Angeles Sparks, Minnesota Lynx, New York Liberty, Phoenix Mercury, Portland Fire, Seattle Storm, Toronto Tempo, Washington Mystics
 
 ## Data Source
 
-Schedule data is fetched from the ESPN public API (`site.api.espn.com`). This is an unofficial API that does not require authentication. Data includes:
+Schedule data is fetched from the ESPN public API (`site.api.espn.com`). This is an unofficial, free API that does not require authentication. Data includes:
 
 - Game dates, times, and venues
-- Opponent team names, logos, and records
+- Opponent team names, short names, logos, and W-L records
 - Home/away designation
 - Win/loss results and scores (completed games)
 - Season series and last 5 form (next game preview)
-- Current team injuries
+- Current team injuries (name, position, status)
 
 ## Form Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
-| Team | Select | All 15 WNBA teams |
+| Team | Select | All 15 WNBA teams (slug format) |
 | Game Filter | Select | All Games / Home Only / Away Only |
-| Time Zone | Timezone | Local timezone for game times |
 
 ## Plugin Icon
 
 Use the WNBA league logo: `https://a.espncdn.com/i/teamlogos/leagues/500/wnba.png`
+
+## Technical Notes
+
+- All templates use **zero inline styles** — TRMNL Framework utility classes + custom classes in `shared.liquid`
+- Calendar dates are parsed from ESPN's local-time display strings to avoid UTC/local timezone mismatch
+- Score result computation is guarded against non-numeric values
+- Exception handling is per-team so one ESPN failure doesn't block other teams
+- The `shown == 0` counter pattern is used instead of `forloop.first` to correctly handle filtered game lists
+- Pages deployment only triggers on successful data updates

@@ -20,7 +20,7 @@
             <span class="label label--small" style="font-weight: bold;">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_short }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
           </td>
           <td style="padding: 4px 0 2px 3px; white-space: nowrap; vertical-align: middle; text-align: right;">
-            <span class="label label--small" style="font-size: 12px;">{{ parts[1] }}</span>
+            <span class="label label--small" style="font-size: 14px;">{{ parts[1] }}</span>
           </td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@
             <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
           </td>
           <td style="padding: 3px 0 3px 3px; white-space: nowrap; vertical-align: middle; text-align: right;">
-            <span class="label label--small" style="font-size: 12px;">{{ parts[1] }}</span>
+            <span class="label label--small" style="font-size: 14px;">{{ parts[1] }}</span>
           </td>
         </tr>
       {% endif %}

@@ -11,10 +11,10 @@
           <span class="label label--small">{{ parts[0] }}</span>
         </td>
         <td class="td-logo-md py--1 px--1">
-          <img src="{{ game.opp_logo }}" width="24" height="24" class="img-block" />
+          <img src="{{ game.opp_logo }}" width="24" height="24" class="image--contain" />
         </td>
         <td class="py--1 px--1">
-          <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} <span class="font-12">({{ game.opp_record }})</span>{% endif %}</span>
+          <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
         </td>
         <td class="nowrap py--1 pl--1 text--right">
           <span class="label label--small">{{ parts[1] }}</span>

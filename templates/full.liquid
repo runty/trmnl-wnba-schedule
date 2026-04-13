@@ -7,42 +7,42 @@
       <div class="stretch-x">
         <div class="flex flex--between flex--center-y mb--2">
           <span class="title flex flex--center-y gap--small">
-            <img src="{{ team.logo }}" width="36" height="36" class="img-contain" />
+            <img src="{{ team.logo }}" width="36" height="36" class="image--contain" />
             {{ cal.month_name }} {{ cal.year }}
           </span>
           <span class="label label--small">
             <span class="record-pill px--2 py--1">{{ team.record }}</span>
           </span>
         </div>
-        <div class="cal-grid">
-          <div class="cal-header label label--small">S</div>
-          <div class="cal-header label label--small">M</div>
-          <div class="cal-header label label--small">T</div>
-          <div class="cal-header label label--small">W</div>
-          <div class="cal-header label label--small">T</div>
-          <div class="cal-header label label--small">F</div>
-          <div class="cal-header label label--small">S</div>
+        <div class="grid grid--cols-7 gap--[2px] text--center">
+          <div class="label label--small p--1 border-b-2 text--center">S</div>
+          <div class="label label--small p--1 border-b-2 text--center">M</div>
+          <div class="label label--small p--1 border-b-2 text--center">T</div>
+          <div class="label label--small p--1 border-b-2 text--center">W</div>
+          <div class="label label--small p--1 border-b-2 text--center">T</div>
+          <div class="label label--small p--1 border-b-2 text--center">F</div>
+          <div class="label label--small p--1 border-b-2 text--center">S</div>
           {% for week in cal.weeks %}
             {% for d in week %}
               {% if d.day == 0 %}
                 <div class="cal-cell cal-day--empty">&nbsp;</div>
               {% elsif d.has_game and d.completed and d.result == "W" %}
-                <div class="cal-cell cal-day--win">
+                <div class="cal-cell bg--black text--white p--1 text--center">
                   {{ d.day }}
-                  <span class="cal-detail">{{ d.opp_abbr }} {{ d.score_display }}</span>
+                  <span class="cal-detail label label--small">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game and d.completed %}
-                <div class="cal-cell cal-day--loss">
+                <div class="cal-cell bg--error text--white p--1 text--center">
                   {{ d.day }}
-                  <span class="cal-detail">{{ d.opp_abbr }} {{ d.score_display }}</span>
+                  <span class="cal-detail label label--small">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game %}
-                <div class="cal-cell cal-day--upcoming">
+                <div class="cal-cell bg--black text--white p--1 text--center">
                   {{ d.day }}
-                  <span class="cal-detail">{{ d.opp_abbr }}</span>
+                  <span class="cal-detail label label--small">{{ d.opp_abbr }}</span>
                 </div>
               {% else %}
-                <div class="cal-cell">
+                <div class="cal-cell p--1 text--center">
                   <span class="label label--small">{{ d.day }}</span>
                 </div>
               {% endif %}
@@ -53,7 +53,7 @@
 
       <!-- Upcoming Games List -->
       <div class="stretch-x pl--3 border-l-2">
-        <span class="title title--small font-bold mb--2 d-block">Upcoming</span>
+        <div class="title title--small mb--2 bold">Upcoming</div>
 
         <table class="tbl">
           {% assign shown = 0 %}
@@ -65,13 +65,13 @@
             {% if shown == 0 %}
               <tr>
                 <td class="td-date py--1 pr--2">
-                  <span class="label font-bold">{{ parts[0] }}</span>
+                  <span class="label bold">{{ parts[0] }}</span>
                 </td>
                 <td class="td-logo py--1 px--1">
-                  <img src="{{ game.opp_logo }}" width="28" height="28" class="img-block" />
+                  <img src="{{ game.opp_logo }}" width="28" height="28" class="image--contain" />
                 </td>
                 <td class="py--1 px--1">
-                  <span class="label font-bold">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_short }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
+                  <span class="label bold">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_short }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
                 </td>
                 <td class="nowrap py--1 pl--1 text--right">
                   <span class="label label--small">{{ parts[1] }}</span>
@@ -85,7 +85,7 @@
               {% if next_game.preview != blank %}
               <tr>
                 <td colspan="4" class="text--right pb--1">
-                  <span class="description font-12">{{ next_game.preview }}</span>
+                  <span class="label label--small">{{ next_game.preview }}</span>
                 </td>
               </tr>
               {% endif %}
@@ -98,7 +98,7 @@
                   <span class="label label--small">{{ parts[0] }}</span>
                 </td>
                 <td class="td-logo-sm py--1 px--1">
-                  <img src="{{ game.opp_logo }}" width="22" height="22" class="img-block" />
+                  <img src="{{ game.opp_logo }}" width="22" height="22" class="image--contain" />
                 </td>
                 <td class="py--1 px--1">
                   <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
@@ -131,7 +131,7 @@
               <span class="label">{{ parts[0] }}</span>
             </td>
             <td class="td-logo py--1 px--1">
-              <img src="{{ game.opp_logo }}" width="28" height="28" class="img-block" />
+              <img src="{{ game.opp_logo }}" width="28" height="28" class="image--contain" />
             </td>
             <td class="py--1 px--1">
               <span class="label">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
@@ -147,7 +147,7 @@
 
   {% if injuries.size > 0 %}
     <div class="w--full pt--1 border-t-1">
-      <span class="description font-12">🏥 {% for inj in injuries %}{{ inj.name }} ({{ inj.position }}, {{ inj.status }}){% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+      <span class="label label--small">🏥 {% for inj in injuries %}{{ inj.name }} ({{ inj.position }}, {{ inj.status }}){% unless forloop.last %} · {% endunless %}{% endfor %}</span>
     </div>
   {% endif %}
 </div>

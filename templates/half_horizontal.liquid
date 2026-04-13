@@ -12,7 +12,7 @@
             <span class="label">{{ parts[0] }}</span>
           </td>
           <td class="td-logo-sm py--1 px--1">
-            <img src="{{ game.opp_logo }}" width="22" height="22" class="img-block" />
+            <img src="{{ game.opp_logo }}" width="22" height="22" class="image--contain" />
           </td>
           <td class="py--1 px--1">
             <span class="label">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_short }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
@@ -27,9 +27,9 @@
   </div>
 
   <div class="flex flex--col flex--center-x gap--small pl--3 no-shrink w--48">
-    <img src="{{ team.logo }}" width="80" height="80" class="img-contain" />
+    <img src="{{ team.logo }}" width="80" height="80" class="image--contain" />
     {% if injuries.size > 0 %}
-      <span class="description font-12 text--center w--44 wrap">🏥 {% for inj in injuries %}{{ inj.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
+      <span class="label label--small text--center w--44 wrap">🏥 {% for inj in injuries %}{{ inj.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
     {% endif %}
   </div>
 </div>

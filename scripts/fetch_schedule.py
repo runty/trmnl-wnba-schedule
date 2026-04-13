@@ -62,11 +62,15 @@ def parse_game(event, team_id, team_records):
 
     home_away = "home"
     opponent = {}
+    team_score = ""
+    opp_score = ""
     for c in competitors:
         if str(c.get("id")) == str(team_id):
             home_away = c.get("homeAway", "home")
+            team_score = c.get("score", "")
         else:
             opponent = c
+            opp_score = c.get("score", "")
 
     opp_team = opponent.get("team", {})
     opp_abbr = opp_team.get("abbreviation", "")
@@ -108,6 +112,11 @@ def parse_game(event, team_id, team_records):
         "status": status.get("description", "Scheduled"),
         "completed": status.get("completed", False),
         "season_type": season_type.get("name", ""),
+        "team_score": team_score,
+        "opp_score": opp_score,
+        "result": "W" if (team_score and opp_score and int(team_score) > int(opp_score)) else
+                  "L" if (team_score and opp_score and int(team_score) < int(opp_score)) else "",
+        "score_display": f"{team_score}-{opp_score}" if (team_score and opp_score) else "",
     }
 
 
@@ -118,7 +127,7 @@ def build_calendar(games, year, month):
 
     game_map = {}
     for g in games:
-        if g["year"] == year and g["month_num"] == month and not g["completed"]:
+        if g["year"] == year and g["month_num"] == month:
             game_map[g["day_num"]] = g
 
     result_weeks = []
@@ -130,14 +139,19 @@ def build_calendar(games, year, month):
             else:
                 game = game_map.get(day)
                 if game:
-                    week_data.append({
+                    entry = {
                         "day": day,
                         "has_game": True,
+                        "completed": game["completed"],
                         "opp_abbr": game["opp_abbr"],
                         "home_away": game["home_away"],
                         "is_home": game["is_home"],
                         "time": game["date_short"],
-                    })
+                    }
+                    if game["completed"]:
+                        entry["result"] = game["result"]
+                        entry["score_display"] = game["score_display"]
+                    week_data.append(entry)
                 else:
                     week_data.append({"day": day, "has_game": False})
         result_weeks.append(week_data)

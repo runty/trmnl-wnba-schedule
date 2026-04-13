@@ -1,4 +1,5 @@
 <style>
+  * { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
   .game-row { display: flex; align-items: center; gap: 6px; padding: 4px 0; }
   .game-row + .game-row { border-top: 1px solid #ccc; }
   .game-date { white-space: nowrap; flex-shrink: 0; }
@@ -8,10 +9,12 @@
   .game-logo--lg { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
   .cal-header { font-weight: bold; padding: 2px 0; border-bottom: 2px solid black; }
-  .cal-day { padding: 3px 1px; min-height: 32px; position: relative; }
+  .cal-day { padding: 2px 1px; min-height: 36px; position: relative; }
   .cal-day--empty { opacity: 0; }
-  .cal-day--game { background: black; color: white; font-weight: bold; }
-  .cal-opp { font-size: 8px; display: block; margin-top: 1px; }
+  .cal-day--upcoming { background: black; color: white; font-weight: bold; }
+  .cal-day--win { background: black; color: white; font-weight: bold; }
+  .cal-day--loss { background: #999; color: white; }
+  .cal-detail { font-size: 7px; display: block; margin-top: 1px; line-height: 1.1; }
   .record-pill { display: inline-block; padding: 2px 6px; border: 1px solid black; }
 </style>
 

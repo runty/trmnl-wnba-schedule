@@ -23,10 +23,20 @@
             {% for d in week %}
               {% if d.day == 0 %}
                 <div class="cal-day cal-day--empty">&nbsp;</div>
-              {% elsif d.has_game %}
-                <div class="cal-day cal-day--game">
+              {% elsif d.has_game and d.completed and d.result == "W" %}
+                <div class="cal-day cal-day--win">
                   {{ d.day }}
-                  <span class="cal-opp">{{ d.opp_abbr }}</span>
+                  <span class="cal-detail">W {{ d.score_display }}</span>
+                </div>
+              {% elsif d.has_game and d.completed and d.result == "L" %}
+                <div class="cal-day cal-day--loss">
+                  {{ d.day }}
+                  <span class="cal-detail">L {{ d.score_display }}</span>
+                </div>
+              {% elsif d.has_game %}
+                <div class="cal-day cal-day--upcoming">
+                  {{ d.day }}
+                  <span class="cal-detail">{{ d.opp_abbr }}</span>
                 </div>
               {% else %}
                 <div class="cal-day">

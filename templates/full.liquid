@@ -141,7 +141,7 @@
 
   {% if injuries.size > 0 %}
     <div style="width: 100%; padding-top: 4px; border-top: 1px solid #ccc;">
-      <span class="description" style="font-size: 10px;">🏥 {% for inj in injuries %}{{ inj.name }} ({{ inj.position }}, {{ inj.status }}){% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+      <span class="description" style="font-size: 12px;">🏥 {% for inj in injuries %}{{ inj.name }} ({{ inj.position }}, {{ inj.status }}){% unless forloop.last %} · {% endunless %}{% endfor %}</span>
     </div>
   {% endif %}
 </div>

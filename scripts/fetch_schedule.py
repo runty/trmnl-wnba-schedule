@@ -101,6 +101,7 @@ def parse_game(event, team_id, team_records):
         "day_num": dt.day if dt else 0,
         "year": dt.year if dt else 0,
         "opponent": opp_team.get("displayName", "Unknown"),
+        "opp_short": opp_team.get("shortDisplayName", opp_team.get("displayName", "Unknown")),
         "opp_abbr": opp_abbr,
         "opp_logo": opp_logo,
         "opp_record": opp_record,

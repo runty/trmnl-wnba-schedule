@@ -1,0 +1,34 @@
+<style>
+  .game-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+  .game-row + .game-row { border-top: 1px solid #ccc; }
+  .ha-badge {
+    display: inline-block;
+    min-width: 14px;
+    text-align: center;
+    font-weight: bold;
+    padding: 1px 4px;
+  }
+  .ha-badge--home { background: black; color: white; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+  .cal-header { font-weight: bold; padding: 2px 0; border-bottom: 2px solid black; }
+  .cal-day { padding: 3px 1px; min-height: 32px; position: relative; }
+  .cal-day--empty { opacity: 0; }
+  .cal-day--game { background: black; color: white; font-weight: bold; }
+  .cal-opp { font-size: 8px; display: block; margin-top: 1px; }
+  .next-game { padding: 8px; border: 2px solid black; }
+  .record-pill { display: inline-block; padding: 2px 6px; border: 1px solid black; }
+</style>
+
+{% assign filter = trmnl.plugin_settings.custom_fields_values.game_filter | default: "All Games" %}
+
+{% template game_list %}
+  {% for game in games limit: max_games %}
+    {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
+    {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
+    <div class="game-row">
+      <span class="ha-badge {% if game.is_home %}ha-badge--home{% endif %}">{% if game.is_home %}H{% else %}A{% endif %}</span>
+      <span class="label label--small" style="min-width: 64px;">{{ game.date_short }}</span>
+      <span class="label" style="flex: 1;">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
+    </div>
+  {% endfor %}
+{% endtemplate %}

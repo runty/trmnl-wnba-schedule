@@ -1,0 +1,48 @@
+# Custom form fields for WNBA Team Schedule recipe
+# Paste this YAML into the Custom Fields section of your Private Plugin settings
+
+- keyname: author_info
+  field_type: author_bio
+  name: About
+  description: >
+    WNBA schedule data is sourced from ESPN and updated twice daily.
+    Data may be delayed or unavailable during the off-season.
+
+- keyname: team
+  field_type: select
+  name: WNBA Team
+  description: "Select your favorite WNBA team to display their schedule"
+  options:
+    - atlanta-dream
+    - chicago-sky
+    - connecticut-sun
+    - dallas-wings
+    - golden-state-valkyries
+    - indiana-fever
+    - las-vegas-aces
+    - los-angeles-sparks
+    - minnesota-lynx
+    - new-york-liberty
+    - phoenix-mercury
+    - portland-fire
+    - seattle-storm
+    - toronto-tempo
+    - washington-mystics
+  default: new-york-liberty
+
+- keyname: game_filter
+  field_type: select
+  name: Game Filter
+  description: "Filter which games to display"
+  options:
+    - All Games
+    - Home Only
+    - Away Only
+  default: All Games
+  optional: true
+
+- keyname: time_zone
+  field_type: time_zone
+  name: Time Zone
+  description: "Your local time zone for game times"
+  optional: true

@@ -1,0 +1,34 @@
+name: Update WNBA Schedule Data
+
+on:
+  schedule:
+    - cron: '0 8,20 * * *'  # Twice daily: 8am and 8pm UTC
+  workflow_dispatch:          # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch WNBA schedule data
+        run: python scripts/fetch_schedule.py
+
+      - name: Commit and push updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add api/teams/
+          if git diff --staged --quiet; then
+            echo "No data changes detected"
+          else
+            git commit -m "Update WNBA schedule data $(date -u +%Y-%m-%d)"
+            git push
+          fi

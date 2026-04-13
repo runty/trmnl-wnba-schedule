@@ -1,0 +1,34 @@
+<div class="layout layout--col">
+  <div style="width: 100%;">
+    {% if next_game %}
+      <span class="description" style="margin-bottom: 2px;">Next Game</span>
+      <span class="value value--small" data-value-fit="true" data-value-fit-max-height="40" style="word-wrap: break-word;">{% if next_game.is_home %}vs{% else %}@{% endif %} {{ next_game.opponent }}</span>
+      <span class="label label--small" style="margin-top: 2px;">{{ next_game.date_short }}</span>
+      <div class="divider" style="margin: 6px 0;"></div>
+    {% endif %}
+
+    {% assign shown = 0 %}
+    {% assign skip_first = true %}
+    {% for game in upcoming %}
+      {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
+      {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
+      {% if skip_first and next_game %}
+        {% assign skip_first = false %}
+        {% continue %}
+      {% endif %}
+      {% if shown >= 3 %}{% break %}{% endif %}
+      <div style="display: flex; gap: 4px; align-items: center; padding: 1px 0;">
+        <span class="ha-badge {% if game.is_home %}ha-badge--home{% endif %}" style="font-size: 9px;">{% if game.is_home %}H{% else %}A{% endif %}</span>
+        <span class="label label--small" style="min-width: 36px;">{{ game.date_short }}</span>
+        <span class="label label--small" data-clamp="1">{{ game.opp_abbr }}</span>
+      </div>
+      {% assign shown = shown | plus: 1 %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="title_bar">
+  <img class="image" src="{{ team.logo }}" />
+  <span class="title">{{ team.abbreviation }}</span>
+  <span class="instance">{{ team.record }}</span>
+</div>

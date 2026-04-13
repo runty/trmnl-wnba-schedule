@@ -1,0 +1,31 @@
+<div class="layout layout--col">
+  <div style="width: 100%;">
+    <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 4px;">
+      <span class="title title--small">{{ team.abbreviation }}</span>
+      <span class="record-pill label label--small">{{ team.record }}</span>
+    </div>
+
+    {% assign shown = 0 %}
+    {% for game in upcoming %}
+      {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
+      {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
+      {% if shown >= 6 %}{% break %}{% endif %}
+      <div class="game-row">
+        <span class="ha-badge {% if game.is_home %}ha-badge--home{% endif %}">{% if game.is_home %}H{% else %}A{% endif %}</span>
+        <span class="label label--small" style="min-width: 44px;">{{ game.date_short }}</span>
+        <span class="label label--small" style="flex: 1;" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
+      </div>
+      {% assign shown = shown | plus: 1 %}
+    {% endfor %}
+
+    {% if games_remaining > 6 %}
+      <span class="description" style="margin-top: 2px;">+{{ games_remaining | minus: 6 }} more</span>
+    {% endif %}
+  </div>
+</div>
+
+<div class="title_bar">
+  <img class="image" src="{{ team.logo }}" />
+  <span class="title">{{ team.name }}</span>
+  <span class="instance">{{ trmnl.plugin_settings.instance_name }}</span>
+</div>

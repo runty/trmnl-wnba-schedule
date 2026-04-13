@@ -15,34 +15,34 @@
           </span>
         </div>
         <div class="cal-grid">
-          <div class="cal-header label label--small p--1">S</div>
-          <div class="cal-header label label--small p--1">M</div>
-          <div class="cal-header label label--small p--1">T</div>
-          <div class="cal-header label label--small p--1">W</div>
-          <div class="cal-header label label--small p--1">T</div>
-          <div class="cal-header label label--small p--1">F</div>
-          <div class="cal-header label label--small p--1">S</div>
+          <div class="cal-header label label--small">S</div>
+          <div class="cal-header label label--small">M</div>
+          <div class="cal-header label label--small">T</div>
+          <div class="cal-header label label--small">W</div>
+          <div class="cal-header label label--small">T</div>
+          <div class="cal-header label label--small">F</div>
+          <div class="cal-header label label--small">S</div>
           {% for week in cal.weeks %}
             {% for d in week %}
               {% if d.day == 0 %}
-                <div class="cal-day--empty p--1 h--9">&nbsp;</div>
+                <div class="cal-cell cal-day--empty">&nbsp;</div>
               {% elsif d.has_game and d.completed and d.result == "W" %}
-                <div class="cal-day--win p--1 h--9">
+                <div class="cal-cell cal-day--win">
                   {{ d.day }}
                   <span class="cal-detail">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game and d.completed %}
-                <div class="cal-day--loss p--1 h--9">
+                <div class="cal-cell cal-day--loss">
                   {{ d.day }}
                   <span class="cal-detail">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game %}
-                <div class="cal-day--upcoming p--1 h--9">
+                <div class="cal-cell cal-day--upcoming">
                   {{ d.day }}
                   <span class="cal-detail">{{ d.opp_abbr }}</span>
                 </div>
               {% else %}
-                <div class="p--1 h--9">
+                <div class="cal-cell">
                   <span class="label label--small">{{ d.day }}</span>
                 </div>
               {% endif %}

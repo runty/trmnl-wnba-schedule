@@ -4,12 +4,13 @@
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
   }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
-  .cal-header { font-weight: bold; border-bottom: 2px solid black; text-align: center; }
+  .cal-header { font-weight: bold; border-bottom: 2px solid black; text-align: center; padding: 2px 0; }
+  .cal-cell { padding: 2px 1px; min-height: 38px; text-align: center; overflow: hidden; }
   .cal-day--empty { opacity: 0; }
   .cal-day--upcoming { background: black; color: white; font-weight: bold; }
   .cal-day--win { background: black; color: white; font-weight: bold; }
   .cal-day--loss { background: #cc0000; color: white; }
-  .cal-detail { font-size: 10px; line-height: 1.1; }
+  .cal-detail { font-size: 9px; display: block; margin-top: 1px; line-height: 1.1; white-space: nowrap; overflow: hidden; }
   .border-b-2 { border-bottom: 2px solid black; }
   .border-b-1 { border-bottom: 1px solid #ccc; }
   .border-t-1 { border-top: 1px solid #ccc; }

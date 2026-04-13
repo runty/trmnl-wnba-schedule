@@ -1,7 +1,7 @@
 <div class="layout layout--col gap--distribute">
   {% if calendars != blank %}
     {% assign cal = calendars[0] %}
-    <div class="flex gap--medium w--full flex--center-y" style="flex: 1;">
+    <div class="flex gap--medium w--full flex--center-y grow">
 
       <!-- Calendar Grid -->
       <div class="stretch-x">
@@ -52,8 +52,8 @@
       </div>
 
       <!-- Upcoming Games List -->
-      <div class="stretch-x pl--3" style="border-left: 2px solid black;">
-        <span class="title title--small font-bold mb--2" style="display: block;">Upcoming</span>
+      <div class="stretch-x pl--3 border-l-2">
+        <span class="title title--small font-bold mb--2 d-block">Upcoming</span>
 
         <table class="tbl">
           {% for game in upcoming limit: 5 %}
@@ -62,16 +62,16 @@
             {% assign parts = game.date_short | split: " - " %}
             {% if forloop.first %}
               <tr>
-                <td class="nowrap py--1 pr--2" style="vertical-align: middle; width: 36px;">
+                <td class="td-date py--1 pr--2">
                   <span class="label font-bold">{{ parts[0] }}</span>
                 </td>
-                <td class="py--1 px--1" style="vertical-align: middle; width: 28px;">
-                  <img src="{{ game.opp_logo }}" width="28" height="28" class="img-contain" style="display: block;" />
+                <td class="td-logo py--1 px--1">
+                  <img src="{{ game.opp_logo }}" width="28" height="28" class="img-block" />
                 </td>
-                <td class="py--1 px--1" style="vertical-align: middle;">
+                <td class="py--1 px--1">
                   <span class="label font-bold">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_short }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
                 </td>
-                <td class="nowrap py--1 pl--1 text--right" style="vertical-align: middle;">
+                <td class="nowrap py--1 pl--1 text--right">
                   <span class="label label--small">{{ parts[1] }}</span>
                 </td>
               </tr>
@@ -92,16 +92,16 @@
               </tr>
             {% else %}
               <tr class="border-b-1">
-                <td class="nowrap py--1 pr--2" style="vertical-align: middle; width: 36px;">
+                <td class="td-date py--1 pr--2">
                   <span class="label label--small">{{ parts[0] }}</span>
                 </td>
-                <td class="py--1 px--1" style="vertical-align: middle; width: 22px;">
-                  <img src="{{ game.opp_logo }}" width="22" height="22" class="img-contain" style="display: block;" />
+                <td class="td-logo-sm py--1 px--1">
+                  <img src="{{ game.opp_logo }}" width="22" height="22" class="img-block" />
                 </td>
-                <td class="py--1 px--1" style="vertical-align: middle;">
+                <td class="py--1 px--1">
                   <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
                 </td>
-                <td class="nowrap py--1 pl--1 text--right" style="vertical-align: middle;">
+                <td class="nowrap py--1 pl--1 text--right">
                   <span class="label label--small">{{ parts[1] }}</span>
                 </td>
               </tr>
@@ -124,16 +124,16 @@
           {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
           {% assign parts = game.date_short | split: " - " %}
           <tr class="border-b-1">
-            <td class="nowrap py--1 pr--2" style="vertical-align: middle; width: 36px;">
+            <td class="td-date py--1 pr--2">
               <span class="label">{{ parts[0] }}</span>
             </td>
-            <td class="py--1 px--1" style="vertical-align: middle; width: 28px;">
-              <img src="{{ game.opp_logo }}" width="28" height="28" class="img-contain" style="display: block;" />
+            <td class="td-logo py--1 px--1">
+              <img src="{{ game.opp_logo }}" width="28" height="28" class="img-block" />
             </td>
-            <td class="py--1 px--1" style="vertical-align: middle;">
+            <td class="py--1 px--1">
               <span class="label">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
             </td>
-            <td class="nowrap py--1 pl--1 text--right" style="vertical-align: middle;">
+            <td class="nowrap py--1 pl--1 text--right">
               <span class="label label--small">{{ parts[1] }}</span>
             </td>
           </tr>

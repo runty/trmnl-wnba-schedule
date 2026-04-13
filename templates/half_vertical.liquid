@@ -10,16 +10,16 @@
       {% assign parts = game.date_short | split: " - " %}
       {% if forloop.first %}
         <tr>
-          <td class="nowrap py--1 pr--1" style="vertical-align: middle; width: 30px;">
+          <td class="td-date-sm py--1 pr--1">
             <span class="label label--small font-bold">{{ parts[0] }}</span>
           </td>
-          <td class="py--1 px--1" style="vertical-align: middle; width: 18px;">
-            <img src="{{ game.opp_logo }}" width="18" height="18" class="img-contain" style="display: block;" />
+          <td class="td-logo-xs py--1 px--1">
+            <img src="{{ game.opp_logo }}" width="18" height="18" class="img-block" />
           </td>
-          <td class="py--1 px--1" style="vertical-align: middle;">
+          <td class="py--1 px--1">
             <span class="label label--small font-bold">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_short }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
           </td>
-          <td class="nowrap py--1 pl--1 text--right" style="vertical-align: middle;">
+          <td class="nowrap py--1 pl--1 text--right">
             <span class="label label--small font-14">{{ parts[1] }}</span>
           </td>
         </tr>
@@ -40,16 +40,16 @@
         </tr>
       {% else %}
         <tr class="border-b-1">
-          <td class="nowrap py--1 pr--1" style="vertical-align: middle; width: 30px;">
+          <td class="td-date-sm py--1 pr--1">
             <span class="label label--small">{{ parts[0] }}</span>
           </td>
-          <td class="py--1 px--1" style="vertical-align: middle; width: 18px;">
-            <img src="{{ game.opp_logo }}" width="18" height="18" class="img-contain" style="display: block;" />
+          <td class="td-logo-xs py--1 px--1">
+            <img src="{{ game.opp_logo }}" width="18" height="18" class="img-block" />
           </td>
-          <td class="py--1 px--1" style="vertical-align: middle;">
+          <td class="py--1 px--1">
             <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} ({{ game.opp_record }}){% endif %}</span>
           </td>
-          <td class="nowrap py--1 pl--1 text--right" style="vertical-align: middle;">
+          <td class="nowrap py--1 pl--1 text--right">
             <span class="label label--small font-14">{{ parts[1] }}</span>
           </td>
         </tr>

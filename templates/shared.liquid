@@ -21,7 +21,19 @@
   .nowrap { white-space: nowrap; }
   .record-pill { border: 1px solid black; }
   .tbl { width: 100%; border-collapse: collapse; }
+  .tbl td { vertical-align: middle; }
   .img-contain { object-fit: contain; }
+  .img-block { object-fit: contain; display: block; }
+  .d-block { display: block; }
+  .grow { flex: 1; }
+  .border-l-2 { border-left: 2px solid black; }
+  .td-date { width: 36px; white-space: nowrap; }
+  .td-date-sm { width: 30px; white-space: nowrap; }
+  .td-logo { width: 28px; }
+  .td-logo-sm { width: 22px; }
+  .td-logo-md { width: 24px; }
+  .td-logo-xs { width: 18px; }
+  .wrap { word-wrap: break-word; }
 </style>
 
 {% assign filter = trmnl.plugin_settings.custom_fields_values.game_filter | default: "All Games" %}

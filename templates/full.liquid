@@ -29,17 +29,17 @@
               {% elsif d.has_game and d.completed and d.result == "W" %}
                 <div class="cal-cell cal-day--win p--1 text--center bold">
                   {{ d.day }}
-                  <span class="cal-detail description">{{ d.opp_abbr }} {{ d.score_display }}</span>
+                  <span class="cal-detail">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game and d.completed %}
                 <div class="cal-cell cal-day--loss p--1 text--center">
                   {{ d.day }}
-                  <span class="cal-detail description">{{ d.opp_abbr }} {{ d.score_display }}</span>
+                  <span class="cal-detail">{{ d.opp_abbr }} {{ d.score_display }}</span>
                 </div>
               {% elsif d.has_game %}
                 <div class="cal-cell cal-day--upcoming p--1 text--center bold">
                   {{ d.day }}
-                  <span class="cal-detail description">{{ d.opp_abbr }}</span>
+                  <span class="cal-detail">{{ d.opp_abbr }}</span>
                 </div>
               {% else %}
                 <div class="cal-cell p--1 text--center">

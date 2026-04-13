@@ -3,22 +3,24 @@
   *, .title, .value, .label, .description, .instance, .index, span, td, th, div {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
   }
-  .game-row { display: flex; align-items: center; gap: 6px; padding: 4px 0; }
-  .game-row + .game-row { border-top: 1px solid #ccc; }
-  .game-date { white-space: nowrap; flex-shrink: 0; }
-  .game-team { display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; }
-  .game-logo { width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; }
-  .game-logo--sm { width: 14px; height: 14px; object-fit: contain; flex-shrink: 0; }
-  .game-logo--lg { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
-  .cal-header { font-weight: bold; padding: 2px 0; border-bottom: 2px solid black; text-align: center; }
-  .cal-day { padding: 2px 1px; min-height: 36px; position: relative; }
+  .cal-header { font-weight: bold; border-bottom: 2px solid black; text-align: center; }
   .cal-day--empty { opacity: 0; }
   .cal-day--upcoming { background: black; color: white; font-weight: bold; }
   .cal-day--win { background: black; color: white; font-weight: bold; }
   .cal-day--loss { background: #cc0000; color: white; }
-  .cal-detail { font-size: 10px; display: block; margin-top: 1px; line-height: 1.1; }
-  .record-pill { display: inline-block; padding: 2px 6px; border: 1px solid black; }
+  .cal-detail { font-size: 10px; line-height: 1.1; }
+  .border-b-2 { border-bottom: 2px solid black; }
+  .border-b-1 { border-bottom: 1px solid #ccc; }
+  .border-t-1 { border-top: 1px solid #ccc; }
+  .font-bold { font-weight: bold; }
+  .font-10 { font-size: 10px; }
+  .font-12 { font-size: 12px; }
+  .font-14 { font-size: 14px; }
+  .nowrap { white-space: nowrap; }
+  .record-pill { border: 1px solid black; }
+  .tbl { width: 100%; border-collapse: collapse; }
+  .img-contain { object-fit: contain; }
 </style>
 
 {% assign filter = trmnl.plugin_settings.custom_fields_values.game_filter | default: "All Games" %}

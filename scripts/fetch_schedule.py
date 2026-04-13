@@ -91,15 +91,30 @@ def parse_game(event, team_id, team_records):
     except (ValueError, AttributeError):
         dt = None
 
+    # Parse local date from shortDetail (e.g. "4/25 - 8:30 PM EDT") to avoid UTC date mismatch
+    short_detail = status.get("shortDetail", "")
+    local_month = 0
+    local_day = 0
+    local_year = dt.year if dt else 0
+    try:
+        date_part = short_detail.split(" - ")[0]  # "4/25"
+        parts = date_part.split("/")
+        local_month = int(parts[0])
+        local_day = int(parts[1])
+    except (IndexError, ValueError):
+        if dt:
+            local_month = dt.month
+            local_day = dt.day
+
     return {
         "date_iso": date_iso,
         "date": status.get("detail", ""),
-        "date_short": status.get("shortDetail", ""),
+        "date_short": short_detail,
         "day_of_week": dt.strftime("%a") if dt else "",
         "month": dt.strftime("%B") if dt else "",
-        "month_num": dt.month if dt else 0,
-        "day_num": dt.day if dt else 0,
-        "year": dt.year if dt else 0,
+        "month_num": local_month,
+        "day_num": local_day,
+        "year": local_year,
         "opponent": opp_team.get("displayName", "Unknown"),
         "opp_short": opp_team.get("shortDisplayName", opp_team.get("displayName", "Unknown")),
         "opp_abbr": opp_abbr,

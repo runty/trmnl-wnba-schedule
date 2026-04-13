@@ -10,6 +10,7 @@ from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/basketball/wnba"
+WNBA_LOGO = "https://a.espncdn.com/i/teamlogos/leagues/500/wnba.png"
 
 TEAMS = {
     "atlanta-dream": 20,
@@ -53,8 +54,15 @@ def parse_game(event, team_id):
             opponent = c
 
     opp_team = opponent.get("team", {})
-    opp_abbr = opp_team.get("abbreviation", "???")
+    opp_abbr = opp_team.get("abbreviation", "")
     date_iso = event.get("date", "")
+
+    # Use WNBA logo as fallback for non-WNBA opponents (exhibitions, international teams)
+    if opp_abbr and opp_abbr != "???":
+        opp_logo = f"https://a.espncdn.com/i/teamlogos/wnba/500/{opp_abbr.lower()}.png"
+    else:
+        opp_logo = WNBA_LOGO
+        opp_abbr = opp_team.get("shortDisplayName", opp_team.get("displayName", "TBD"))
 
     try:
         dt = datetime.fromisoformat(date_iso.replace("Z", "+00:00"))
@@ -72,7 +80,7 @@ def parse_game(event, team_id):
         "year": dt.year if dt else 0,
         "opponent": opp_team.get("displayName", "Unknown"),
         "opp_abbr": opp_abbr,
-        "opp_logo": f"https://a.espncdn.com/i/teamlogos/wnba/500/{opp_abbr.lower()}.png",
+        "opp_logo": opp_logo,
         "home_away": home_away,
         "is_home": home_away == "home",
         "location": "Home" if home_away == "home" else "Away",

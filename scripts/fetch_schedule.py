@@ -219,8 +219,12 @@ def process_team(slug, team_id, team_records):
                 t_name = team_l5.get("team", {}).get("abbreviation", "")
                 results = [e.get("gameResult", "") for e in team_l5.get("events", [])]
                 if results:
-                    form = "".join(r[0] if r else "" for r in results[:5])
-                    parts.append(f"{t_name} last 5: {form}")
+                    form = "".join(
+                        "\u2705" if r and r[0] == "W" else
+                        "\u274C" if r and r[0] == "L" else ""
+                        for r in results[:5]
+                    )
+                    parts.append(f"{t_name}: {form}")
 
             preview = ". ".join(p for p in parts if p)
         except Exception:

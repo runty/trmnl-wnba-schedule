@@ -1,12 +1,10 @@
 <style>
   .game-row { display: flex; align-items: center; gap: 6px; padding: 4px 0; }
   .game-row + .game-row { border-top: 1px solid #ccc; }
-  .game-date { min-width: 110px; flex-shrink: 0; }
-  .game-date--short { min-width: 56px; flex-shrink: 0; }
-  .game-date--compact { min-width: 40px; flex-shrink: 0; }
-  .game-team { display: flex; align-items: center; gap: 4px; flex: 1; }
-  .game-logo { width: 18px; height: 18px; flex-shrink: 0; }
-  .game-logo--small { width: 14px; height: 14px; }
+  .game-date { white-space: nowrap; flex-shrink: 0; }
+  .game-team { display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; }
+  .game-logo { width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; }
+  .game-logo--sm { width: 14px; height: 14px; object-fit: contain; flex-shrink: 0; }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
   .cal-header { font-weight: bold; padding: 2px 0; border-bottom: 2px solid black; }
   .cal-day { padding: 3px 1px; min-height: 32px; position: relative; }

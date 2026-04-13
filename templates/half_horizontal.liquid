@@ -13,7 +13,7 @@
       <div class="game-row">
         <span class="label label--small game-date">{{ game.date_short }}</span>
         <span class="game-team">
-          <img class="game-logo" src="{{ game.opp_logo }}" />
+          <img class="game-logo" src="{{ game.opp_logo }}" width="18" height="18" />
           <span class="label" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
         </span>
       </div>

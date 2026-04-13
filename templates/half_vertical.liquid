@@ -11,9 +11,9 @@
       {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
       {% if shown >= 6 %}{% break %}{% endif %}
       <div class="game-row">
-        <span class="label label--small game-date--short">{{ game.date_short }}</span>
+        <span class="label label--small game-date">{{ game.date_short }}</span>
         <span class="game-team">
-          <img class="game-logo--small" src="{{ game.opp_logo }}" />
+          <img class="game-logo--sm" src="{{ game.opp_logo }}" width="14" height="14" />
           <span class="label label--small" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
         </span>
       </div>

@@ -1,5 +1,5 @@
 <div class="layout layout--col">
-  {% if calendars.size > 0 %}
+  {% if calendars != blank %}
     {% assign cal = calendars[0] %}
     <div class="flex gap--medium" style="width: 100%;">
 
@@ -45,21 +45,21 @@
           {% if filter == "Home Only" and game.home_away != "home" %}{% continue %}{% endif %}
           {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
           <div class="game-row">
-            <span class="label label--small game-date--short">{{ game.date_short }}</span>
+            <span class="label label--small game-date">{{ game.date_short }}</span>
             <span class="game-team">
-              <img class="game-logo--small" src="{{ game.opp_logo }}" />
+              <img class="game-logo--sm" src="{{ game.opp_logo }}" width="14" height="14" />
               <span class="label label--small" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
             </span>
           </div>
         {% endfor %}
         {% if games_remaining > 8 %}
-          <span class="description" style="margin-top: 4px; display: block;">+ {{ games_remaining | minus: 8 }} more games</span>
+          <span class="description" style="margin-top: 4px; display: block;">+ {{ games_remaining | minus: 8 }} more</span>
         {% endif %}
       </div>
     </div>
 
   {% else %}
-    <!-- No calendar data - show list view -->
+    <!-- Fallback list view -->
     <div style="width: 100%;">
       <div class="flex" style="justify-content: space-between; margin-bottom: 8px;">
         <span class="title">{{ team.name }} Schedule</span>
@@ -71,7 +71,7 @@
         <div class="game-row">
           <span class="label game-date">{{ game.date_short }}</span>
           <span class="game-team">
-            <img class="game-logo" src="{{ game.opp_logo }}" />
+            <img class="game-logo" src="{{ game.opp_logo }}" width="18" height="18" />
             <span class="label" data-clamp="1">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opponent }}</span>
           </span>
         </div>

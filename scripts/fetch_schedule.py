@@ -228,8 +228,29 @@ def process_team(slug, team_id, team_records):
                     parts.append(f"{t_name}: {form}")
 
             preview = ". ".join(p for p in parts if p)
+
+            # Injuries for the user's team
+            injuries = []
+            for team_inj in summary_data.get("injuries", []):
+                if str(team_inj.get("team", {}).get("id")) == str(team_id):
+                    for inj in team_inj.get("injuries", []):
+                        athlete = inj.get("athlete", {})
+                        pos = athlete.get("position", {}).get("abbreviation", "")
+                        detail = ""
+                        if isinstance(inj.get("details"), dict):
+                            detail = inj["details"].get("detail", "")
+                        injuries.append({
+                            "name": athlete.get("shortName", athlete.get("displayName", "")),
+                            "position": pos,
+                            "status": inj.get("status", ""),
+                            "detail": detail,
+                        })
         except Exception:
             preview = ""
+            injuries = []
+
+    if not next_game:
+        injuries = []
 
     if next_game:
         next_game["preview"] = preview
@@ -246,6 +267,7 @@ def process_team(slug, team_id, team_records):
         "upcoming": upcoming[:20],
         "recent": list(reversed(recent[-5:])),
         "next_game": next_game,
+        "injuries": injuries,
         "calendars": calendars,
         "games_remaining": len(upcoming),
         "total_games": len(games),

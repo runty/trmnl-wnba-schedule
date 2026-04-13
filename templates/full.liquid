@@ -105,6 +105,12 @@
             {% endif %}
           {% endfor %}
         </table>
+
+        {% if injuries.size > 0 %}
+          <div style="margin-top: auto; padding-top: 4px; border-top: 1px solid #ccc;">
+            <span class="description">🏥 {% for inj in injuries %}{{ inj.name }} ({{ inj.position }}, {{ inj.status }}){% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+          </div>
+        {% endif %}
       </div>
     </div>
 

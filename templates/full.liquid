@@ -58,7 +58,7 @@
             {% if filter == "Away Only" and game.home_away != "away" %}{% continue %}{% endif %}
             {% assign parts = game.date_short | split: " - " %}
             {% if forloop.first %}
-              <tr style="border-bottom: 1px solid #ccc;">
+              <tr>
                 <td style="padding: 5px 6px 2px 0; white-space: nowrap; vertical-align: middle; width: 36px;">
                   <span class="label" style="font-weight: bold;">{{ parts[0] }}</span>
                 </td>
@@ -78,12 +78,15 @@
                 </td>
               </tr>
               {% if next_game.preview != blank %}
-              <tr style="border-bottom: 2px solid black;">
-                <td colspan="4" style="padding: 0 0 6px 0;">
+              <tr>
+                <td colspan="4" style="padding: 0 0 4px 0;">
                   <span class="description">{{ next_game.preview }}</span>
                 </td>
               </tr>
               {% endif %}
+              <tr>
+                <td colspan="4" style="padding: 0; border-bottom: 2px solid black;"></td>
+              </tr>
             {% else %}
               <tr style="border-bottom: 1px solid #ccc;">
                 <td style="padding: 4px 6px 4px 0; white-space: nowrap; vertical-align: middle; width: 36px;">

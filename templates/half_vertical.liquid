@@ -25,13 +25,13 @@
         </tr>
         <tr>
           <td colspan="4" style="padding: 0 0 2px 0; text-align: right;">
-            <span class="description" style="font-size: 10px;">{{ game.venue }}, {{ game.city }}</span>
+            <span class="description" style="font-size: 14px;">{{ game.venue }}, {{ game.city }}</span>
           </td>
         </tr>
         {% if next_game.preview != blank %}
         <tr>
-          <td colspan="4" style="padding: 0 0 3px 0;">
-            <span class="description" style="font-size: 10px;">{{ next_game.preview }}</span>
+          <td colspan="4" style="padding: 0 0 3px 0; text-align: right;">
+            <span class="description" style="font-size: 12px;">{{ next_game.preview }}</span>
           </td>
         </tr>
         {% endif %}

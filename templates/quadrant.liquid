@@ -14,7 +14,7 @@
           <img src="{{ game.opp_logo }}" width="24" height="24" style="display: block; object-fit: contain;" />
         </td>
         <td style="padding: 4px 3px; vertical-align: middle;">
-          <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}</span>
+          <span class="label label--small">{% if game.is_home %}vs{% else %}@{% endif %} {{ game.opp_abbr }}{% if game.opp_record != blank %} <span style="font-size: 12px;">({{ game.opp_record }})</span>{% endif %}</span>
         </td>
         <td style="padding: 4px 0 4px 3px; white-space: nowrap; vertical-align: middle; text-align: right;">
           <span class="label label--small">{{ parts[1] }}</span>

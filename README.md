@@ -110,9 +110,10 @@ Use the WNBA league logo: `https://a.espncdn.com/i/teamlogos/leagues/500/wnba.pn
 
 ## Technical Notes
 
-- All templates use **zero inline styles** — TRMNL Framework utility classes + custom classes in `shared.liquid`
+- **Zero inline styles** across all templates — uses TRMNL Framework utility classes (`bg--black`, `text--white`, `text--center`, `image--contain`, `p--`, `gap--`, `flex--`, etc.) with minimal custom CSS in `shared.liquid` only for things the Framework doesn't cover (calendar grid layout, cell sizing, border specifics, table layout)
 - Calendar dates are parsed from ESPN's local-time display strings to avoid UTC/local timezone mismatch
-- Score result computation is guarded against non-numeric values
-- Exception handling is per-team so one ESPN failure doesn't block other teams
+- Score result computation is guarded against non-numeric values via `_compute_result()` helper
+- Exception handling is per-team (`except Exception`) so one ESPN failure doesn't block other teams
 - The `shown == 0` counter pattern is used instead of `forloop.first` to correctly handle filtered game lists
-- Pages deployment only triggers on successful data updates
+- Pages deployment only triggers on successful data updates (`workflow_run.conclusion == 'success'`)
+- Non-WNBA opponents (exhibition games) use the WNBA league logo as fallback
